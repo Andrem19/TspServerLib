@@ -7,3 +7,7 @@ TcpClientDbManager::TcpClientDbManager(TcpServerController* tcp_ctrlr) {
 TcpClientDbManager::~TcpClientDbManager() {
 
 }
+
+void TcpClientDbManager::StartTcpClientDbMgrInit() {
+
+}

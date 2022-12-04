@@ -24,6 +24,8 @@
     <ProjectGuid>{ccb438ec-7024-4624-85cd-050240db8a61}</ProjectGuid>
     <RootNamespace>TspServerLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static</VcpkgTriplet>
+    <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -123,6 +125,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,16 +136,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="network_utils.cpp" />
+    <ClCompile Include="TcpClient.cpp" />
     <ClCompile Include="TcpClientDbManager.cpp" />
     <ClCompile Include="TcpClientServiceManager.cpp" />
+    <ClCompile Include="TcpMsgDemarcar.cpp" />
     <ClCompile Include="TcpNewConnectionAcceptor.cpp" />
     <ClCompile Include="TcpServerController.cpp" />
     <ClCompile Include="TspServerLib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="network_utils.h" />
+    <ClInclude Include="TcpClient.h" />
     <ClInclude Include="TcpClientDbManager.h" />
     <ClInclude Include="TcpClientServiceManager.h" />
+    <ClInclude Include="TcpMsgDemarcar.h" />
     <ClInclude Include="TcpNewConnectionAcceptor.h" />
     <ClInclude Include="TcpServerController.h" />
   </ItemGroup>

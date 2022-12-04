@@ -15,6 +15,8 @@ public:
 
 	TcpClientDbManager(TcpServerController*);
 	~TcpClientDbManager();
+
+	void StartTcpClientDbMgrInit();
 };
 #endif
 

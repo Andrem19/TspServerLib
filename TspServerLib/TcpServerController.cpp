@@ -20,5 +20,10 @@ TcpServerController::TcpServerController(
 	this->tcp_client_svc_mgr = new TcpClientServiceManager(this);
 }
 void TcpServerController::Start() {
-	std::cout << "start" << std::endl;
+	this->tcp_new_conn_acc->StartTcpNewConnectionAcceptorThread();
+	this->tcp_client_svc_mgr->StartTcpClientServiceManagerThread();
+	this->tcp_client_db_mgr->StartTcpClientDbMgrInit();
+
+	printf("Tcp Server is Up and Running [%s, %d]\nOk.\n", 
+		network_convert_ip_n_to_p(this->ip_addr,0), this->port_no);
 }
