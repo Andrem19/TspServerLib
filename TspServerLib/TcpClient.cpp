@@ -33,7 +33,7 @@ void
 TcpClient::Abort() {
 
     if (this->comm_fd) {
-        close(this->comm_fd);
+        /*close(this->comm_fd);*/
         this->comm_fd = 0;
     }
 

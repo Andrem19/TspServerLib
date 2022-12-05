@@ -15,6 +15,22 @@
 
 
 TcpNewConnectionAcceptor::TcpNewConnectionAcceptor(TcpServerController* tcp_ctrlr) {
+
+	WSADATA wsaData;
+	int iResult;
+	int opt = 1;
+	SOCKET ListenSocket = INVALID_SOCKET;
+	SOCKET ClientSocket = INVALID_SOCKET;
+
+	struct addrinfo* result = NULL;
+	struct addrinfo hints;
+
+	// Initialize Winsock
+	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (iResult != 0) {
+		printf("WSAStartup failed with error: %d\n", iResult);
+	}
+
     this->accept_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	if (this->accept_fd<0)
