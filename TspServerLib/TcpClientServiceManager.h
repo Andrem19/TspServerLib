@@ -13,5 +13,6 @@ public:
 	~TcpClientServiceManager();
 
 	void StartTcpClientServiceManagerThread();
+	void ClientFDStartListed(TcpClient*);
 };
 #endif

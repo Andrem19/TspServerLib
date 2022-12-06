@@ -12,18 +12,13 @@
 #include "network_utils.h"
 #include "TcpServerController.h"
 #include "TcpNewConnectionAcceptor.h"
+#include "TcpClient.h"
 
 
 TcpNewConnectionAcceptor::TcpNewConnectionAcceptor(TcpServerController* tcp_ctrlr) {
-
+	//Initialize dll library
 	WSADATA wsaData;
 	int iResult;
-	int opt = 1;
-	SOCKET ListenSocket = INVALID_SOCKET;
-	SOCKET ClientSocket = INVALID_SOCKET;
-
-	struct addrinfo* result = NULL;
-	struct addrinfo hints;
 
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -96,24 +91,24 @@ void TcpNewConnectionAcceptor::StartTcpNewConnectionAcceptorThreadInternal() {
 			continue;
 		}
 
-		//TcpClient* tcp_client = new TcpClient(
-		//	htonl(client_addr.sin_addr.s_addr),
-		//	htons(client_addr.sin_port));
+		TcpClient* tcp_client = new TcpClient(
+			htonl(client_addr.sin_addr.s_addr),
+			htons(client_addr.sin_port));
 
-		//tcp_client->server_ip_addr = this->tcp_ctrlr->ip_addr;
-		//tcp_client->server_port_no = this->tcp_ctrlr->port_no;
+		tcp_client->server_ip_addr = this->tcp_ctrlr->ip_addr;
+		tcp_client->server_port_no = this->tcp_ctrlr->port_no;
 
-		//tcp_client->tcp_ctrlr = this->tcp_ctrlr;
-		//tcp_client->comm_fd = comm_sock_fd;
+		tcp_client->tcp_ctrlr = this->tcp_ctrlr;
+		tcp_client->comm_fd = comm_sock_fd;
 
-		//if (this->tcp_ctrlr->client_connected) {
-		//	this->tcp_ctrlr->client_connected(this->tcp_ctrlr, tcp_client);
-		//}
+		if (this->tcp_ctrlr->client_connected) {
+			this->tcp_ctrlr->client_connected(this->tcp_ctrlr, tcp_client);
+		}
 
-		//tcp_client->msgd = NULL;
+		tcp_client->msgd = NULL;
 
-		///* Tell the TCP Controller, to further process the Client */
-		//this->tcp_ctrlr->ProcessNewClient(tcp_client);
+		/* Tell the TCP Controller, to further process the Client */
+		this->tcp_ctrlr->ProcessNewClient(tcp_client);
 
 		printf("Connection Accepted from Client [%s, %d]\n",
 			network_convert_ip_n_to_p(htonl(client_addr.sin_addr.s_addr), 0),
